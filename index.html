@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SpendWise — Personal Budget Tracker</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="app-shell">
+        <!-- Left Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="brand-box">
+                <div class="brand-icon">S</div>
+                <div>
+                    <strong>SpendWise</strong>
+                    <span>Budget Tracker</span>
+                </div>
+            </div>
+
+            <nav class="side-nav" aria-label="Primary Views">
+                <button type="button" class="nav-btn active" data-view="view-overview">Overview</button>
+                <button type="button" class="nav-btn" data-view="view-budget">Monthly Budget</button>
+                <button type="button" class="nav-btn" data-view="view-expense">Add Expense</button>
+                <button type="button" class="nav-btn" data-view="view-history">Expense History</button>
+            </nav>
+
+            <div class="sidebar-note">
+                <span>Smart Personal Finance</span>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <div class="main-area">
+            <header class="topbar">
+                <div>
+                    <span class="eyebrow">SpendWise Workspace</span>
+                    <h1 id="view-title">Budget Overview</h1>
+                </div>
+                <div class="topbar-status">
+                    <span id="budget-pill" class="pill pill-neutral">No Budget Set</span>
+                </div>
+            </header>
+
+            <div class="content-grid">
+                <main class="primary-column">
+                    <!-- VIEW 1: OVERVIEW -->
+                    <section id="view-overview" class="view-section active">
+                        <div class="panel">
+                            <div class="panel-top">
+                                <h2>Budget Summary</h2>
+                                <span id="usage-badge" class="usage-badge">0% spent</span>
+                            </div>
+
+                            <div class="summary-grid">
+                                <div class="summary-item">
+                                    <span class="label">Monthly Budget</span>
+                                    <strong id="budget-display" class="amount">$0.00</strong>
+                                </div>
+                                <div class="summary-item">
+                                    <span class="label">Total Spent</span>
+                                    <strong id="spent-display" class="amount">$0.00</strong>
+                                </div>
+                                <div class="summary-item">
+                                    <span class="label">Remaining</span>
+                                    <strong id="remaining-display" class="amount">$0.00</strong>
+                                </div>
+                            </div>
+
+                            <div class="meter-track">
+                                <div id="meter-fill" class="meter-fill" style="width: 0%;"></div>
+                            </div>
+
+                            <div id="feedback-banner" class="feedback feedback-neutral">
+                                Enter your monthly budget to start tracking your expenses.
+                            </div>
+
+                            <div class="quick-actions">
+                                <button type="button" class="btn btn-primary" data-jump="view-budget">Set Monthly Budget</button>
+                                <button type="button" class="btn btn-outline" data-jump="view-expense">Record New Expense</button>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- VIEW 2: MONTHLY BUDGET (Dedicated Space) -->
+                    <section id="view-budget" class="view-section">
+                        <div class="panel">
+                            <h2>Set Monthly Budget</h2>
+                            <p class="panel-desc">Configure or update your available spending limit for the month.</p>
+                            <form id="budget-form" class="form-stack">
+                                <label for="budget-input">Monthly Budget Amount ($)</label>
+                                <input type="number" id="budget-input" placeholder="e.g., 1500" min="0.01" step="0.01" required>
+                                <button type="submit" class="btn btn-primary">Save Budget</button>
+                            </form>
+                            <p id="budget-feedback" class="inline-note">Current saved budget: $0.00</p>
+                        </div>
+                    </section>
+
+                    <!-- VIEW 3: ADD EXPENSE (Dedicated Space) -->
+                    <section id="view-expense" class="view-section">
+                        <div class="panel">
+                            <h2>Add New Expense</h2>
+                            <p class="panel-desc">Record an individual expense into your expenses array.</p>
+                            <form id="expense-form" class="form-stack">
+                                <label for="expense-title">Expense Name</label>
+                                <input type="text" id="expense-title" placeholder="e.g., Groceries, Electricity" required>
+
+                                <div class="split-inputs">
+                                    <div>
+                                        <label for="expense-amount">Amount ($)</label>
+                                        <input type="number" id="expense-amount" placeholder="0.00" min="0.01" step="0.01" required>
+                                    </div>
+                                    <div>
+                                        <label for="expense-category">Category</label>
+                                        <select id="expense-category">
+                                            <option value="Food">Food</option>
+                                            <option value="Housing">Housing</option>
+                                            <option value="Transport">Transport</option>
+                                            <option value="Utilities">Utilities</option>
+                                            <option value="Lifestyle">Lifestyle</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <button type="submit" class="btn btn-primary">Add Expense</button>
+                            </form>
+                            <p id="expense-feedback" class="inline-note"></p>
+                        </div>
+                    </section>
+
+                    <!-- VIEW 4: EXPENSE HISTORY (Dedicated Space) -->
+                    <section id="view-history" class="view-section">
+                        <div class="panel">
+                            <div class="history-top">
+                                <div>
+                                    <h2>Expense History</h2>
+                                    <span id="expense-count" class="panel-desc">0 recorded expenses</span>
+                                </div>
+                                <div class="history-tools">
+                                    <select id="category-filter" aria-label="Filter expenses by category">
+                                        <option value="All">All Categories</option>
+                                        <option value="Food">Food</option>
+                                        <option value="Housing">Housing</option>
+                                        <option value="Transport">Transport</option>
+                                        <option value="Utilities">Utilities</option>
+                                        <option value="Lifestyle">Lifestyle</option>
+                                    </select>
+                                    <button type="button" id="clear-all-btn" class="btn btn-danger">Clear All</button>
+                                </div>
+                            </div>
+
+                            <ul id="expense-list" class="expense-list"></ul>
+                            <p id="empty-message" class="empty-message">No expenses added yet.</p>
+                        </div>
+                    </section>
+                </main>
+
+                <!-- Right Side Panel: Spending by Category -->
+                <aside class="side-panel">
+                    <h2>Spending by Category</h2>
+                    <p class="panel-desc">Live totals across your categories.</p>
+                    <ul id="category-breakdown" class="breakdown-list"></ul>
+                </aside>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
