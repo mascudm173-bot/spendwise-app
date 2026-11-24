@@ -9,12 +9,13 @@ SpendWise is an interactive personal budgeting web application built with HTML, 
 * **Hosting & CI/CD:** Netlify
 
 ## GitHub Repository Information
-* **Repository URL:** https://github.com
+* **Repository URL:** [https://github.com](https://github.com)
 * **Visibility:** Public
 * **Branch:** `main`
 
 ## Live Netlify Website URL
-* **Live Application:** https://netlify.app
+* **Live Application:** [https://netlify.app](https://netlify.app)
+
 
 ## Deployment Process Summary
 1. **Deployment Readiness:** Checked that `index.html`, `style.css`, and `script.js` were organized in the root folder with relative paths.
